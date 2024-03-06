@@ -32,7 +32,7 @@ main{
 
 #notes{
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /*para os itens quebrarem linha*/
   justify-content: space-around;
 }
 
@@ -47,7 +47,7 @@ main{
   width: 90vw;
   padding:10px;
  
-}
+} /*campos de digitação*/
 
 #close-modal{
   float:right;
