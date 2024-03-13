@@ -33,4 +33,50 @@ btnCloseNote.addEventListener("click", (evt)=>{
 
 btnSaveNote.addEventListener("click", (evt)=>{
     evt.preventDefault();
+    let data = {
+        id: document.querySelector("#input-id").value,
+        title: document.querySelector("#input-title").value,
+        content: document.querySelector("#input-content").value,
+    }
+
+    saveNote(data);
 })
+
+/**
+ * ===================== FUNÇÕES  =======================
+ */
+
+    const loadNotes = () => {
+        let notes = localStorage.getItem('notes');
+
+    if(!notes){
+        notes = [];
+    }
+    else {
+        notes = JSON.parse(notes);
+    }
+
+    return notes;
+    }
+
+ const saveNote = (note) => {
+
+    let notes = loadNotes();
+    note.lastTime = new Date().getTime();
+    console.log(note.lastTime);
+
+    if(note.id.length>0){
+
+    }
+    else{
+        note.lastTime = new Date().getTime();
+        console.log(note.lastTime);
+    }
+
+    console.log(notes);
+    notes.push(note);
+
+    notes = JSON.stringify(notes);
+    localStorage.setItem('notes', notes);  
+    
+}
