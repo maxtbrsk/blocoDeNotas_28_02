@@ -10,12 +10,16 @@
 </head>
 <body>
       <header>
-        <div id="logo"><img src="/IMAGENS/note.svg" /></div>
-        <div id="display"></div>
+        <div id="logo" class="logo">
+          <a href="#">
+            <img src="/IMAGENS/note.svg" />
+          </a>
+        </div>
+        <div id="display"><p>Bloco de Notas</p></div>
         <div id="user"></div>
     </header>
     <msgs></msgs>
-    <main>
+    <main class="main">
       <div id="controls">
         <div id="add-note">
            <a href="" >
@@ -54,11 +58,11 @@
      </div>
      <input type="hidden" id="input-id" >
      <div class="mb-3">
-       <label for="title" class="form-label">Title</label>
-       <input type="text" class="form-control" id="input-title" placeholder="Title">
+       <label for="title" class="form-label">Título</label>
+       <input type="text" class="form-control" id="input-title" placeholder="Título">
      </div>
      <div class="mb-3">
-       <label for="content" class="form-label">Notes</label>
+       <label for="content" class="form-label">Notas</label>
        <textarea class="form-control" id="input-content" rows="4"></textarea>
      </div>
 
