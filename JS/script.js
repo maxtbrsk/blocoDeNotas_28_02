@@ -28,6 +28,8 @@ let add_note = () => {
 addNote.addEventListener("click", (evt)=>{
     evt.preventDefault();
    add_note ();
+   document.querySelector("#input-title").value = "";
+   documento.querySelector("#input-content").value = "";
 })
 
 
@@ -38,8 +40,6 @@ btnCloseNote.addEventListener("click", (evt)=>{
     modal.style.display = "none";
     addNote.style.display = "block";
     document.querySelector('#input-id').value = "";
-    document.querySelector('#input-title').value = "";
-    document.querySelector('#input-content').value = "";
     listNotes();
 })
 
@@ -53,6 +53,8 @@ btnSaveNote.addEventListener("click", (evt)=>{
 
     saveNote(data);
 })
+
+
 
 
 /**
@@ -78,8 +80,8 @@ btnSaveNote.addEventListener("click", (evt)=>{
     note.lastTime = new Date().getTime();
 
     if(note.id.length > 0){
-        note.id = parseInt (note.id);
         notes.forEach((item , i) => {
+            note.id = parseInt (note.id);
             if(item.id == note.id){
                 notes[i] = note;
             }
@@ -110,8 +112,10 @@ const listNotes = () => {
     const divCardBody = document.createElement('div');
     divCardBody.className = 'card-body';
     const h1 = document.createElement ('h1');
+    h1.className = 'card-title';
     h1.innerText = item.title;
     const pContent = document.createElement('p');
+    pContent.className = 'card-text'
     pContent.innerText = item.content;
     const pLastTime = document.createElement('p');
     let lastTime = new Date (item.lastTime).toLocaleDateString('pt-BR');
@@ -120,13 +124,11 @@ const listNotes = () => {
     divCardBody.appendChild(pContent);
     divCardBody.appendChild(pLastTime);
 
-
-    divCardBody.appendChild(h1);
     divCard.appendChild(divCardBody);
     notes.appendChild(divCard);
     divCard.addEventListener("click", (evt)=> {
         evt.preventDefault();
-        showNote(item);
+        showNote(item, listNotes);
     });
     })
 }
@@ -139,8 +141,22 @@ let editNote = (note) => {
     add_note();
 }
 
+let exclude_note = (note) => {
+    let notes = loadNotes();
+    note.id = parseInt(note.id)
+    notes.forEach((item, i) => {
+        if (item.id == note.id){
+            notes.splice(i, 1);
+        }
+    }) 
+    notes = JSON.stringify(notes);
+    localStorage.setItem('notes', notes);
+    location.reload();
+}
+
 const showNote = (note) => {
     btnEditNote.removeEventListener("click", editNote);
+    btnExcludeNote.removeEventListener("click", exclude_note)
     notes.style.display = 'none';
     addNote.style.display = 'none';
     modalView.style.display = 'block';
@@ -154,7 +170,9 @@ const showNote = (note) => {
     btnEditNote.addEventListener("click", function() {
             editNote(note);
         });
+    btnExcludeNote.addEventListener("click", function(){
+        exclude_note(note);
+    })
 }
-
 
 listNotes();
